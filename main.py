@@ -21,7 +21,19 @@ def select_patients(patients, k):
     # TODO Step 6: Implement the selection logic to pick the top k patients.
     # TODO Step 7: Test with small examples (including empty list and k=0).
     # TODO Step 8: Confirm the time complexity is about O(n log n).
-    pass
+    # Handle trivial cases
+    if k <= 0:
+      return []
+    if not patients:
+      return []
+
+    # Sort patients by (severity, arrival_order) ascending.
+    # Lower severity number means higher priority.
+    sorted_patients = sorted(patients, key=lambda p: (p["severity"], p["arrival_order"]))
+
+    # Take up to k names in that order
+    selected = [p["name"] for p in sorted_patients[:k]]
+    return selected
 
 
 if __name__ == "__main__":
